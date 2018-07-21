@@ -1,4 +1,5 @@
 'use strict'
+const axios = require('axios')
 
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-west-2'});
@@ -55,7 +56,9 @@ describe('Basic S3 Operations', () => {
     })
   })
   it ('should get a presigned url to put object', async () => {
-    var res = await s3.getSignedPutUrl("test.json")
+    var signed = await s3.getSignedPutUrl("test.json", { 'ContentType': 'application/json' })
+    console.log(signed)
+    var res = (await axios.put(signed.url, `{"hello":"world"}`, { headers: { 'Content-Type': 'application/json' }})).data
     console.log(res)
   })
 })
