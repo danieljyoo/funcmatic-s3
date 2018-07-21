@@ -1,6 +1,6 @@
 {
   "name": "funcmatic-s3",
-  "version": "1.0.0-alpha",
+  "version": "1.1.0",
   "description": "Promise-based version of a few basic functions of AWS S3 javascript library.",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "url": "https://github.com/danieljyoo/funcmatic-s3.git"
   },
   "dependencies": {
-    "aws-sdk": "^2.163.0"
+    "aws-sdk": "^2.279.1"
   },
   "devDependencies": {
     "jest": "^21.2.1"

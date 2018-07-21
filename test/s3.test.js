@@ -54,6 +54,10 @@ describe('Basic S3 Operations', () => {
       done()
     })
   })
+  it ('should get a presigned url to put object', async () => {
+    var res = await s3.getSignedPutUrl("test.json")
+    console.log(res)
+  })
 })
 
 
