@@ -1,4 +1,5 @@
 'use strict'
+const fs = require('fs')
 const axios = require('axios')
 
 var AWS = require('aws-sdk');
@@ -59,6 +60,21 @@ describe('Basic S3 Operations', () => {
     var signed = await s3.getSignedPutUrl("test.json", { 'ContentType': 'application/json' })
     console.log(signed)
     var res = (await axios.put(signed.url, `{"hello":"world"}`, { headers: { 'Content-Type': 'application/json' }})).data
+    console.log(res)
+  })
+  it ('should upload a presigned url for a zip object (non-streaming)', async () => {
+    var path = `${__dirname}/index.test.zip`
+    var size = fs.statSync(path).size
+    var signed = await s3.getSignedPutUrl('index.test.zip', { 
+      'ContentType': 'application/zip'
+    })
+    var res = (await axios.put(signed.url, 
+      //fs.createReadStream(path), { 
+        fs.readFileSync(path), { 
+        headers: { 
+          'Content-Type': 'application/zip'
+        }
+      })).data
     console.log(res)
   })
 })
