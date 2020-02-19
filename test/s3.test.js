@@ -40,7 +40,7 @@ describe('Basic S3 Operations', () => {
     data = await s3.delete(data.keys)
     expect(data).toHaveProperty('keys')
     console.log(data.keys)
-    expect(data.keys).toEqual([ "test.json", "test2.json" ])
+    expect(data.keys.sort()).toEqual([ "test.json", "test2.json" ])
   }, 30000)
   it ('should get a presigned url to put object', async () => {
     var signed = await s3.getSignedPutUrl("test.json", { 'ContentType': 'application/json' })
